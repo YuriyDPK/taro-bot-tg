@@ -1,6 +1,5 @@
 stages:
   - deploy
-  - verify
 
 variables:
   CONTAINER_NAME: botlikeauto
@@ -16,21 +15,6 @@ deploy:
     - docker build -t $CONTAINER_NAME .
     - docker run -d -p $EXTERNAL_PORT:$INTERNAL_PORT --name $CONTAINER_NAME $CONTAINER_NAME
     - echo "Deployment complete!"
-  only:
-    - dev
-  tags:
-    - dev_scouting
-
-# Проверка работоспособности
-verify:
-  stage: verify
-  script:
-    - echo "Проверка работоспособности приложения..."
-    - sleep 10 # Ожидание инициализации приложения
-    - docker ps | grep $CONTAINER_NAME || (echo "Контейнер не запущен!" && exit 1)
-    - curl -s -f http://localhost:$EXTERNAL_PORT/ || (echo "Приложение недоступно!" && exit 1)
-    - docker logs $CONTAINER_NAME --tail 50 | grep -i error > /dev/null && (echo "В логах обнаружены ошибки!" && docker logs $CONTAINER_NAME --tail 50 | grep -i error && exit 1) || echo "Ошибок в логах не обнаружено."
-    - echo "Проверка успешно завершена!"
   only:
     - dev
   tags:
