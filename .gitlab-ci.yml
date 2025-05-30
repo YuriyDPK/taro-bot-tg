@@ -19,7 +19,7 @@ deploy:
   only:
     - main
   tags:
-    - shell
+    - dev_scouting
 
 # Проверка работоспособности
 verify:
@@ -34,4 +34,4 @@ verify:
   only:
     - main
   tags:
-    - shell
+    - dev_scouting
