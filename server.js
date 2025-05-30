@@ -36,7 +36,7 @@ bot.onText(/\/start(.*)/, (msg, match) => {
   }
 
   // Отправляем сообщение с открытием веб-приложения
-  bot.sendMessage(chatId, "Открой приложение для продолжения", {
+  bot.sendMessage(chatId, "Открой приложение для продолжения работы", {
     reply_markup: {
       inline_keyboard: [
         [
