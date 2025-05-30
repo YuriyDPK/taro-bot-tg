@@ -17,7 +17,7 @@ deploy:
     - docker run -d -p $EXTERNAL_PORT:$INTERNAL_PORT --name $CONTAINER_NAME $CONTAINER_NAME
     - echo "Deployment complete!"
   only:
-    - main
+    - dev
   tags:
     - dev_scouting
 
@@ -32,6 +32,6 @@ verify:
     - docker logs $CONTAINER_NAME --tail 50 | grep -i error > /dev/null && (echo "В логах обнаружены ошибки!" && docker logs $CONTAINER_NAME --tail 50 | grep -i error && exit 1) || echo "Ошибок в логах не обнаружено."
     - echo "Проверка успешно завершена!"
   only:
-    - main
+    - dev
   tags:
     - dev_scouting
